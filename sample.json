@@ -1,0 +1,32 @@
+{
+	"lists": [
+		{
+			"name": "courses",
+			"content": [
+				{
+					"category": null,
+					"items": [
+						"passer a la pharmacie"
+					]
+				},
+				{
+					"category": "légumes",
+					"items": [
+						"poire",
+						"bannane"
+					]
+				}
+			]
+		},
+		{
+			"name": "films à voir",
+			"content": [
+				{
+					"category": null,
+					"items": [
+					]
+				}
+			]
+		}
+	]
+}

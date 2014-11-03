@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8" />
+	<!-- <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;"/> -->
+    <title>Listeur</title>
+
+	<link rel="stylesheet" href="listeur.css" />
+
+	<script src="sjcl/sjcl.js"></script>
+	<script src="sjcl/sha256.js"></script>
+	<script src="listeur.js"></script>
+</head>
+<body>
+<h1 id="pagename" onclick="srv_synchronize()">Listeur</h1>
+<div id="login">
+	<form action="#" onsubmit="act_login(); return false;">
+		<input type="passwd" id="login_psw" autofocus />
+		<input type="submit" value="GO !" />
+	</form>
+</div>
+<div id="lstlst" style="display:none">
+	<ul class="actionbox">
+		<li class="add" onclick="act_addlst();"></li>
+	</ul>
+	<ul id="lstlst_lst">
+	</ul>
+</div>
+<div id="lst" style="display:none">
+	<ul class="actionbox">
+		<li class="add" onclick="act_addcat();"></li>
+	</ul>
+	<ul id="lst_lst">
+	</ul>
+</div>
+<div id="addlst" style="display:none">
+	<form action="#" onsubmit="act_finalizeAddLst(); return false;">
+		Nom de la liste: <input type="text" id="addlst_name" /><br />
+		<input type="submit" value="GO !" />
+	</form>
+</div>
+<div id="addcat" style="display:none">
+	<form action="#" onsubmit="act_finalizeAddCat(); return false;">
+		Nom de la catégorie: <input type="text" id="addcat_name" /><br />
+		<input type="submit" value="GO !" />
+	</form>
+</div>
+<div id="additem" style="display:none">
+	<form action="#" onsubmit="act_finalizeAddItem(); return false;">
+		<input type="hidden" id="additem_cat" />
+		Nom de l'entrée: <input type="text" id="additem_name" /><br />
+		<input type="submit" value="GO !" />
+	</form>
+</div>
+<div id="status">
+Status: vide
+</div>
+</body>
+</html>
