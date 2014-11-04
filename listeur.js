@@ -9,32 +9,22 @@ var accessHash = null;
 function act_login() {
 	var oPsw = document.getElementById('login_psw');
 	accessHash = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(oPsw.value)).substring(0, 10);
-	var sFilename = '/listeur-data/' + accessHash + '.json';
+	srv_retrieveData(login_fail);
+}
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", sFilename, true);
-	xhr.onload = function (e) {
-		if (xhr.readyState === 4) {
-			if (xhr.status >= 200 && xhr.status < 300) {
-				login_success(JSON.parse(xhr.responseText));
-			}else {
-				login_fail();
-			}
-		}
+function act_loginFromLocal() {
+	if (local_isSet()) {
+		local_retrieve();
+		srv_retrieveData(null);
 	}
-	xhr.onerror = function (e) {
-		login_fail();
-	}
-	xhr.send(null);
 }
 
 function login_fail() {
 	alert('login failed');
 }
 
-function login_success(d) {
-	data = d;
-	srv_updateState('sync');
+function login_success() {
+	local_synchronize();
 	gui_listOflists();
 	changeLocation('#lstlst');
 }
@@ -202,6 +192,21 @@ function act_delitem(catNum, itemNum) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Local storage
+
+function local_synchronize() {
+	localStorage.setItem('accessHash', accessHash);
+}
+
+function local_isSet() {
+	return localStorage.getItem('accessHash') !== null;
+}
+
+function local_retrieve() {
+	accessHash = localStorage.getItem('accessHash');
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Server
 
 function srv_updateState(newState) {
@@ -211,7 +216,7 @@ function srv_updateState(newState) {
 
 function srv_synchronize() {
 	var sFilename = '/listeur-data/send.php?f=' + accessHash;
-	var sData = JSON.stringify(data)
+	var sData = JSON.stringify(data);
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", sFilename, true);
@@ -235,6 +240,36 @@ function srv_syncSuccess() {
 }
 
 function srv_syncFail() {
+}
+
+function srv_retrieveData(failCb) {
+	var sFilename = '/listeur-data/' + accessHash + '.json';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", sFilename, true);
+	xhr.onload = function (e) {
+		if (xhr.readyState === 4) {
+			if (xhr.status >= 200 && xhr.status < 300) {
+				srv_retrieveDataSuccess(JSON.parse(xhr.responseText));
+			}else {
+				if (failCb != null) {
+					failCb();
+				}
+			}
+		}
+	}
+	xhr.onerror = function (e) {
+		if (failCb != null) {
+			failCb();
+		}
+	}
+	xhr.send(null);
+}
+
+function srv_retrieveDataSuccess(retrieved) {
+	data = retrieved;
+	srv_updateState('sync');
+	login_success();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

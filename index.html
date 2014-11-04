@@ -11,8 +11,8 @@
 	<script src="sjcl/sha256.js"></script>
 	<script src="listeur.js"></script>
 </head>
-<body>
-<h1 id="pagename" onclick="srv_synchronize()">Listeur</h1>
+<body onload="act_loginFromLocal()">
+<h1 id="pagename">Listeur</h1>
 <div id="login">
 	<form action="#" onsubmit="act_login(); return false;">
 		<input type="passwd" id="login_psw" autofocus />
