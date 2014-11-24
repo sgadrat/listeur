@@ -243,7 +243,7 @@ function srv_syncFail() {
 }
 
 function srv_retrieveData(failCb) {
-	var sFilename = '/listeur-data/' + accessHash + '.json';
+	var sFilename = '/listeur-data/' + accessHash + '.json?t=' + new Date().getTime();
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", sFilename, true);
