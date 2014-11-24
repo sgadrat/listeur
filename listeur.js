@@ -230,7 +230,7 @@ function srv_synchronize() {
 		}
 	}
 	xhr.onerror = function (e) {
-		login_fail();
+		srv_syncFail();
 	}
 	xhr.send(sData);
 }
