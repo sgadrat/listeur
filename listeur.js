@@ -20,7 +20,7 @@ function act_loginFromLocal() {
 }
 
 function login_fail() {
-	alert('login failed');
+	alert('Mot de passe incorrect');
 }
 
 function login_success() {
