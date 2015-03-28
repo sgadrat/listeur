@@ -13,6 +13,9 @@ if (! file_exists($sFilename)) {
 }
 
 $sData = file_get_contents('php://input');
+if (strtolower($_GET['h']) != hash('sha256', $sData)) {
+	error('400 Bad Request');
+}
 if (file_put_contents($sFilename, $sData) === FALSE) {
 	error('500 Write failed');
 }

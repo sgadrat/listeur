@@ -215,8 +215,9 @@ function srv_updateState(newState) {
 }
 
 function srv_synchronize() {
-	var sFilename = '/listeur-data/send.php?f=' + accessHash;
 	var sData = JSON.stringify(data);
+	var sDataHash = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(sData));
+	var sFilename = '/listeur-data/send.php?f=' + accessHash + '&h=' + sDataHash;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", sFilename, true);
