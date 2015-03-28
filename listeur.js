@@ -299,6 +299,7 @@ function gui_login() {
 	gui_hideAll();
 	gui_setPageName("Listeur");
 	document.getElementById('login').style.display = 'block';
+	document.getElementById('login_psw').focus();
 }
 
 function gui_listOflists() {
@@ -359,6 +360,7 @@ function gui_addlst() {
 	gui_setPageName("Ajouter une liste");
 	document.getElementById('addlst_name').value = '';
 	document.getElementById('addlst').style.display = 'block';
+	document.getElementById('addlst_name').focus();
 }
 
 function gui_addcat() {
@@ -366,6 +368,7 @@ function gui_addcat() {
 	gui_setPageName("Ajouter une catégorie");
 	document.getElementById('addcat_name').value = '';
 	document.getElementById('addcat').style.display = 'block';
+	document.getElementById('addcat_name').focus();
 }
 
 function gui_additem(catNum) {
@@ -374,6 +377,7 @@ function gui_additem(catNum) {
 	document.getElementById('additem_cat').value = catNum;
 	document.getElementById('additem_name').value = '';
 	document.getElementById('additem').style.display = 'block';
+	document.getElementById('additem_name').focus();
 }
 
 function gui_dataState() {
