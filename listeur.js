@@ -67,9 +67,12 @@ function act_downlst(listNum) {
 
 function act_dellst(listNum) {
 	event.stopPropagation();
-	data['lists'].splice(listNum, 1);
-	srv_updateState('modified');
-	gui_listOflists();
+	var proceed = confirm("Supprimer la liste " + data['lists'][listNum]['name']);
+	if (proceed) {
+		data['lists'].splice(listNum, 1);
+		srv_updateState('modified');
+		gui_listOflists();
+	}
 }
 
 function act_addlst() {
@@ -122,10 +125,19 @@ function act_downcat(catNum) {
 }
 
 function act_delcat(catNum) {
+	var proceed = true;
+	var cat;
 	event.stopPropagation();
-	data['lists'][currentList]['content'].splice(catNum, 1);
-	srv_updateState('modified');
-	gui_list(data['lists'][currentList]);
+
+	cat = data['lists'][currentList]['content'][catNum];
+	if (cat['items'].length > 0) {
+		proceed = confirm('Suprimmer la categorie ' + getCategoryName(cat));
+	}
+	if (proceed) {
+		data['lists'][currentList]['content'].splice(catNum, 1);
+		srv_updateState('modified');
+		gui_list(data['lists'][currentList]);
+	}
 }
 
 function act_addcat() {
